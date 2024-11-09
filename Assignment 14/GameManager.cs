@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        Player player = new Player("hussam", 100);
+        Enemy enemy = new Enemy("ahmad", 100);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log("Player: " + player.CharacterName + ", Health: " + player.CharacterHealth);
+        Debug.Log("Enemy: " + enemy.CharacterName + ", Health: " + enemy.CharacterHealth);
+
+        player.Heal(20);
+
+        enemy.Attack(player, 30);
     }
 }

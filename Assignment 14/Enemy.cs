@@ -16,7 +16,7 @@ public class Enemy : Character
     public void Attack(Character target, int damage)
     {
         target.CharacterHealth -= damage;
-        Debug.Log(" attacking " + target.CharacterName + " for " + damage + " damage. " + "\n now " + target.CharacterName + "'s  health is: " + target.CharacterHealth);
+        Debug.Log(" attacking " + target.CharacterName + " for " + damage + " damage  " + "--->" + target.CharacterName + "'s  health is: " + target.CharacterHealth);
     }
 
 }
