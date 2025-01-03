@@ -1,51 +1,54 @@
 using UnityEngine;
 
-public class SwordController : MonoBehaviour
+namespace Assignment25
 {
-    public float swingSpeed = 400f;
-    public float maxSwingAngle = 180f;
-    public float restingAngle = -33f;     
-
-    private float currentAngle;
-    private bool isSwinging = false;
-    private bool swingForward = true;
-
-    void Start()
+    public class SwordController : MonoBehaviour
     {
-        currentAngle = restingAngle;
-        transform.localRotation = Quaternion.Euler(0, 0, currentAngle);
-    }
+        public float swingSpeed = 400f;
+        public float maxSwingAngle = 180f;
+        public float restingAngle = -33f;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !isSwinging)
+        private float currentAngle;
+        private bool isSwinging = false;
+        private bool swingForward = true;
+
+        void Start()
         {
-            isSwinging = true;
-            swingForward = true;
+            currentAngle = restingAngle;
+            transform.localRotation = Quaternion.Euler(0, 0, currentAngle);
         }
 
-        if (isSwinging)
+        void Update()
         {
-            if (swingForward)
+            if (Input.GetKeyDown(KeyCode.Mouse1) && !isSwinging)
             {
-                currentAngle += swingSpeed * Time.deltaTime;
-                if (currentAngle >= maxSwingAngle)
-                {
-                    currentAngle = maxSwingAngle;
-                    swingForward = false;
-                }
-            }
-            else
-            {
-                currentAngle -= swingSpeed * Time.deltaTime;
-                if (currentAngle <= restingAngle)
-                {
-                    currentAngle = restingAngle;
-                    isSwinging = false;
-                }
+                isSwinging = true;
+                swingForward = true;
             }
 
-            transform.localRotation = Quaternion.Euler(0, 0, currentAngle);
+            if (isSwinging)
+            {
+                if (swingForward)
+                {
+                    currentAngle += swingSpeed * Time.deltaTime;
+                    if (currentAngle >= maxSwingAngle)
+                    {
+                        currentAngle = maxSwingAngle;
+                        swingForward = false;
+                    }
+                }
+                else
+                {
+                    currentAngle -= swingSpeed * Time.deltaTime;
+                    if (currentAngle <= restingAngle)
+                    {
+                        currentAngle = restingAngle;
+                        isSwinging = false;
+                    }
+                }
+
+                transform.localRotation = Quaternion.Euler(0, 0, currentAngle);
+            }
         }
     }
 }

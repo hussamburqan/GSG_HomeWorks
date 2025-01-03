@@ -1,55 +1,59 @@
 ﻿using UnityEngine;
 
-public class BookController : MonoBehaviour
+namespace Assignment25
 {
-    public float openSpeed = 100f;
-    public float maxOpenAngle = 120f;
-    public GameObject bookContent;
-
-    public float minScale = 0.1f;
-    public float maxScale = 1f;
-    public float scaleThreshold = 30f;
-
-    private float currentAngle = 0f;
-    private Vector3 originalScale;
-
-    void Start()
+    public class BookController : MonoBehaviour
     {
-        
-        bookContent.SetActive(false);
-        originalScale = bookContent.transform.localScale;
-        bookContent.transform.localScale = originalScale * minScale;
-        
-    }
+        public float openSpeed = 100f;
+        public float maxOpenAngle = 120f;
+        public GameObject bookContent;
 
-    void Update()
-    {
-        if (Input.GetMouseButton(0))
+        public float minScale = 0.1f;
+        public float maxScale = 1f;
+        public float scaleThreshold = 30f;
+
+        private float currentAngle = 0f;
+        private Vector3 originalScale;
+
+        void Start()
         {
 
-            currentAngle = Mathf.Min(currentAngle + openSpeed * Time.deltaTime, maxOpenAngle);
-            if (currentAngle > 5)
+            bookContent.SetActive(false);
+            originalScale = bookContent.transform.localScale;
+            bookContent.transform.localScale = originalScale * minScale;
+
+        }
+
+        void Update()
+        {
+            if (Input.GetMouseButton(0))
             {
-                bookContent.SetActive(true);
 
+                currentAngle = Mathf.Min(currentAngle + openSpeed * Time.deltaTime, maxOpenAngle);
+                if (currentAngle > 5)
+                {
+                    bookContent.SetActive(true);
+
+                }
             }
-        }
-        else
-        {
+            else
+            {
 
-            currentAngle = Mathf.Max(currentAngle - openSpeed * Time.deltaTime, 0);
-            if (currentAngle <5 ) {
-                bookContent.SetActive(false);
+                currentAngle = Mathf.Max(currentAngle - openSpeed * Time.deltaTime, 0);
+                if (currentAngle < 5)
+                {
+                    bookContent.SetActive(false);
 
+                }
             }
+
+            transform.localRotation = Quaternion.Euler(0, 0, -currentAngle);
+
+            float scaleRatio = Mathf.Clamp01((currentAngle - scaleThreshold) / (maxOpenAngle - scaleThreshold));
+            float currentScaleFactor = Mathf.Lerp(minScale, maxScale, scaleRatio);
+
+            bookContent.transform.localScale = originalScale * currentScaleFactor;
+
         }
-
-        transform.localRotation = Quaternion.Euler(0, 0, -currentAngle);
-       
-        float scaleRatio = Mathf.Clamp01((currentAngle - scaleThreshold) / (maxOpenAngle - scaleThreshold));
-        float currentScaleFactor = Mathf.Lerp(minScale, maxScale, scaleRatio);
-
-        bookContent.transform.localScale = originalScale * currentScaleFactor;
-      
     }
 }
