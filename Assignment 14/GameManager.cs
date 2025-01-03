@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
-
+namespace s { 
 public class GameManager : MonoBehaviour
 {
     void Start()
@@ -17,4 +17,5 @@ public class GameManager : MonoBehaviour
 
         enemy.Attack(player, 30);
     }
+}
 }
